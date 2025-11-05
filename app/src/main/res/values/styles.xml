@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomCheckboxTheme">
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="colorControlActivated">@android:color/transparent</item>
+        <item name="android:buttonTint">@null</item>
+    </style>
+
+    <style name="DialogOverlay" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">#80000000</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="CircularImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="RoundedImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="TransparentDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item> <!-- 50% dark background -->
+    </style>
+
+
+</resources>

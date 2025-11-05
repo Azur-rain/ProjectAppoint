@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <!-- Disabled state: 50% opacity of #68382E -->
+        <item android:color="#8068382E" android:state_enabled="false" />
+        <!-- Enabled state: full color -->
+        <item android:color="#FF68382E" android:state_enabled="true" />
+    </selector>
+
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:color="#000000" android:state_checked="true" />
+        <item android:color="#000000" android:state_pressed="true" />
+        <item android:color="#000000" />
+    </selector>
+
+</resources>
