@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    tools:context=".assessmentjava">
+
+    <!-- 9. Placeholder for person icon/image - Fixed MissingConstraints by setting proper constraints. -->
+
+    <!-- 1. Centered Instruction Text - Corrected asymmetric margins for better centering. -->
+
+    <!-- 2. Main Heading -->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:contentDescription="@string/content_description_person_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img" />
+
+    <TextView
+        android:id="@+id/text_instruction"
+        style="@style/PoppinsTextAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="25dp"
+        android:text="@string/instruction_text"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Accomplish assessment first before proceeding to appointment." />
+
+    <TextView
+        android:id="@+id/text_heading"
+        style="@style/PoppinsTextAppearance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/heading_text"
+        android:textAlignment="center"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_instruction"
+        tools:text="HELP US GET TO KNOW YOU MORE." />
+
+    <!-- 3. Segmented Progress Indicator (9 segments for PHQ-9) -->
+    <LinearLayout
+        android:id="@+id/layout_progress_segments"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="horizontal"
+        android:weightSum="9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_heading">
+
+        <!-- 9 View Segments (1 of 9) -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+        <!-- THE NEW 9TH SEGMENT ADDED HERE -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/segment_shape" />
+
+    </LinearLayout>
+
+    <!-- Question Card Container (Central element) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_question"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:cardBackgroundColor="@color/card_background"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_progress_segments"
+        app:layout_constraintVertical_bias="0.3">
+
+        <LinearLayout
+            android:id="@+id/layout_question_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- 4. Question Text (CRITICAL ID) -->
+            <TextView
+                android:id="@+id/text_question"
+                style="@style/PoppinsTextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"
+                android:text="@string/question_1"
+                tools:text="Little interest or pleasure in doing things" />
+
+            <!-- 5. Vertically Stacked Answer Buttons Container -->
+            <LinearLayout
+                android:id="@+id/layout_answer_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Answer Button 1: Not at all (CRITICAL ID) -->
+                <Button
+                    android:id="@+id/button_answer_1"
+                    style="@style/PoppinsTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/button_brown"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="16sp"
+                    android:text="@string/answer_not_at_all"
+                    tools:text="Not at all" />
+
+                <!-- Answer Button 2: Several days (CRITICAL ID) -->
+                <Button
+                    android:id="@+id/button_answer_2"
+                    style="@style/PoppinsTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/button_brown"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="16sp"
+                    android:text="@string/answer_several_days"
+                    tools:text="Several days" />
+
+                <!-- Answer Button 3: More than half the days (CRITICAL ID) -->
+                <Button
+                    android:id="@+id/button_answer_3"
+                    style="@style/PoppinsTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/button_brown"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="16sp"
+                    android:text="@string/answer_more_than_half_the_days"
+                    tools:text="More than half the days" />
+
+                <!-- Answer Button 4: Nearly every day (CRITICAL ID) -->
+                <Button
+                    android:id="@+id/button_answer_4"
+                    style="@style/PoppinsTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/button_brown"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="16sp"
+                    android:text="@string/answer_nearly_every_day"
+                    tools:text="Nearly every day" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- 7. Back Arrow Icon (CRITICAL ID) - Fixed using app:icon and standard size for an icon button. -->
+
+    <!-- 8. Primary Button Labeled "NEXT" (CRITICAL ID) -->
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/button_brown"
+        android:contentDescription="Go back to the previous question"
+        android:enabled="false"
+        app:icon="@drawable/ic_arrow_back"
+        app:iconTint="@color/segment_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_next"
+        style="@style/PoppinsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/button_brown"
+        android:textColor="@color/text_tertiary"
+        android:textSize="16sp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/button_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:enabled="false"
+        android:alpha="0.5"
+        tools:text="NEXT" />
+
+    <!-- 6. Segmented Progress Text "1 of 9" (CRITICAL ID) - Constrained between buttons and centered vertically. -->
+    <TextView
+        android:id="@+id/text_progress"
+        style="@style/PoppinsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_next"
+        app:layout_constraintTop_toTopOf="@+id/button_next"
+        app:layout_constraintEnd_toStartOf="@+id/button_next"
+        app:layout_constraintStart_toEndOf="@+id/button_back"
+        tools:text="1 of 9" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

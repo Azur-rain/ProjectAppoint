@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This drawable defines the background for a SELECTED answer button. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Solid color for the selected state -->
+    <solid android:color="@color/colorButtonBrown" />
+
+    <!-- Rounded corners that match the app's style -->
+    <corners android:radius="12dp" />
+
+    <!-- Add a subtle stroke for definition -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/colorButtonBrown" />
+</shape>

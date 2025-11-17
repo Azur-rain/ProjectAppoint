@@ -35,7 +35,15 @@
 
     <style name="CalendarDateTextscale">
         <item name="android:textSize">6sp</item> <!-- Change to whatever size you want -->
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">#000000</item><!-- Defines the custom text style used throughout the assessment.
+         NOTE: The custom font reference has been permanently removed
+         to eliminate the "Cannot resolve symbol '@font/poppins'" error
+         since the Poppins font file is missing. -->
+        <style name="PoppinsTextAppearance">
+            <item name="android:textSize">16sp</item>
+        </style>
+
+
     </style>
 
 
@@ -44,6 +52,8 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@android:color/black</item> <!-- keeps weekdays normal -->
     </style>
-
+    <style name="PoppinsTextAppearance">
+        <item name="android:textSize">16sp</item>
+    </style>
 
 </resources>

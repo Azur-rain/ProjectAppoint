@@ -1,3 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">AssessmentTest</string>
+
+    <!-- Header & Instruction Text -->
+    <string name="instruction_text">Accomplish assessment first before proceeding to appointment.</string>
+    <string name="heading_text">HELP US GET TO KNOW YOU MORE.</string>
+    <string name="button_submit">SUBMIT</string>
+    <string name="button_next">NEXT</string>
+    <string name="button_finish">FINISH</string>
+    <string name="progress_format">%1$d of %2$d</string>
+
+    <!-- Answer Choices (Same for all 9 questions) -->
+    <string name="answer_not_at_all">Not at all</string>
+    <string name="answer_several_days">Several days</string>
+    <string name="answer_more_than_half_the_days">More than half the days</string>
+    <string name="answer_nearly_every_day">Nearly every day</string>
+
+    <!-- Back Button Content Description (For accessibility) -->
+    <string name="content_description_back">Back button</string>
+
+    <!-- FIX: Added missing content description strings -->
+    <string name="content_description_person_icon">Person icon indicating assessment start</string>
+    <string name="content_description_result_table">Table showing PHQ-9 score interpretation</string>
+
+    <!-- Question Content (9 Questions) -->
+    <string name="question_1">Little interest or pleasure in doing things</string>
+    <string name="question_2">Feeling down, depressed, or hopeless</string>
+    <string name="question_3">Trouble falling or staying asleep, or sleeping too much</string>
+    <string name="question_4">Feeling tired or having little energy</string>
+    <string name="question_5">Poor appetite or overeating</string>
+    <string name="question_6">Feeling bad about yourself, or that you are a failure</string>
+    <string name="question_7">Trouble concentrating on things, such as reading or watching TV</string>
+    <string name="question_8">Moving or speaking so slowly that other people could have noticed? Or the opposite—being so fidgety or restless that you have been moving around a lot more than usual</string>
+    <string name="question_9">Thoughts that you would be better off dead or of hurting yourself in some way</string>
+
 </resources>

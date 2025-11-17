@@ -8,6 +8,18 @@
         <color name="colorAccent">#FF4081</color> <!-- or any color you want -->
 
 
+    <!-- Your existing colors go here... -->
+
+    <!-- Assessment Specific Colors -->
+    <color name="segment_highlight">#FFF9D006</color> <!-- Bright Yellow for active segments -->
+    <color name="segment_gray">#FFCCCCCC</color> <!-- Light Gray for inactive segments -->
+    <color name="error_red">#FFFF0000</color> <!-- Red for instruction text -->
+    <color name="text_primary">#FF000000</color> <!-- Black for main text -->
+    <color name="text_tertiary">#FFFFFFFF</color> <!-- White for buttons -->
+    <color name="button_brown">#FF68382E</color> <!-- Brown for buttons -->
+    <color name="background_primary">#FFF7D1</color> <!-- Light Yellow background -->
+    <color name="card_background">#FFF3B9</color> <!-- Cream background for the card --><!-- Brown Button Color (68382E) -->
+    <color name="colorButtonBrown">#68382E</color>
 
 
 </resources>
