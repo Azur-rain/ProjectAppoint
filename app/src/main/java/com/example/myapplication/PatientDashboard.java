@@ -10,16 +10,16 @@ public class PatientDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patientdashboard); // make sure this matches your XML filename
+        setContentView(R.layout.patientdashboard);
 
-        // Get root view
+
         View root = findViewById(R.id.rootDashboard);
 
-        // Handle insets
+
         root.setOnApplyWindowInsetsListener((v, insets) -> {
             int bottomInset = insets.getSystemWindowInsetBottom();
 
-            // Apply padding to the bottom so grid and nav bar don't overlap
+
             v.setPadding(
                     v.getPaddingLeft(),
                     v.getPaddingTop(),

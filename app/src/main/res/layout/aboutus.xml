@@ -18,20 +18,21 @@
         <!-- ===== ORIGINAL SECTION ===== -->
         <RelativeLayout
             android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/btnClose"
-                android:clickable="true"
-                android:layout_width="53dp"
-                android:layout_height="24dp"
+                android:layout_width="82dp"
+                android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="356dp"
+                android:layout_marginStart="327dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="2dp"
                 android:background="@android:color/transparent"
+                android:clickable="true"
                 android:contentDescription="Close"
                 android:padding="17dp"
                 android:scaleType="centerCrop"
@@ -44,24 +45,24 @@
                 android:layout_below="@id/btnClose"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="49dp"
-                android:layout_marginTop="-7dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="-6dp"
+                android:layout_marginEnd="35dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blobshapeforaboutus" />
 
             <ImageView
                 android:id="@+id/logoImage"
-                android:layout_width="402dp"
-                android:layout_height="253dp"
+                android:layout_width="302dp"
+                android:layout_height="193dp"
                 android:layout_below="@id/btnClose"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="-17dp"
-                android:layout_marginTop="-63dp"
-                android:layout_marginEnd="26dp"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="-12dp"
+                android:layout_marginEnd="57dp"
                 android:contentDescription="Company Logo"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/__10" />
 
             <TextView
@@ -69,6 +70,7 @@
                 android:layout_width="132dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/logoImage"
+                android:orientation="vertical"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="140dp"
                 android:layout_marginTop="17dp"
@@ -85,6 +87,7 @@
                 android:layout_height="315dp"
                 android:layout_below="@id/aboutTitle"
                 android:layout_marginTop="8dp"
+                android:orientation="vertical"
                 android:layout_marginBottom="16dp"
                 android:lineSpacingExtra="4dp"
                 android:padding="15dp"
@@ -253,6 +256,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
             android:orientation="vertical"
             android:padding="24dp"
             android:gravity="center_horizontal">
