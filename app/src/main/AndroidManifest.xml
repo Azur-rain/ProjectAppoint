@@ -41,6 +41,10 @@
             android:name=".assessment"
             android:exported="false" />
 
+        <activity
+            android:name=".assessmentresult"
+            android:exported="false" />
+
 
 
     </application>

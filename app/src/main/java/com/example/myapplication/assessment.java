@@ -1,18 +1,18 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class assessment extends AppCompatActivity {
     // --- Data Model ---
     private static class Question {
         String questionText;
-        int score; // -1 means unanswered
+        int score; // -1 = unanswered
 
         Question(String text) {
             this.questionText = text;
@@ -38,7 +38,8 @@ public class assessment extends AppCompatActivity {
     private TextView progressText;
     private TextView questionText;
     private LinearLayout segmentContainer;
-    private Button[] answerButtons = new Button[4];
+    private LinearLayout buttonContainer;
+    private final Button[] answerButtons = new Button[4];
 
     // Colors
     private int colorBrown = Color.parseColor("#794A3D");
@@ -50,86 +51,72 @@ public class assessment extends AppCompatActivity {
     private static final float DISABLED_ALPHA = 0.5f;
     private static final float ENABLED_ALPHA = 1.0f;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assessment);
 
-        // --- Initialize UI Elements ---
+        // Initialize colors
+        try {
+            colorBrown = ContextCompat.getColor(this, R.color.button_brown);
+            colorHighlight = ContextCompat.getColor(this, R.color.segment_highlight);
+            colorGray = ContextCompat.getColor(this, R.color.segment_gray);
+        } catch (Exception ignored) {}
+
+        // Setup questions
+        setupQuestionData();
+
+        // --- UI Element Initialization ---
         backButton = findViewById(R.id.button_back);
         nextButton = findViewById(R.id.button_next);
         progressText = findViewById(R.id.text_progress);
         questionText = findViewById(R.id.text_question);
         segmentContainer = findViewById(R.id.layout_progress_segments);
+        buttonContainer = findViewById(R.id.layout_answer_buttons);
 
-        // Answer buttons from XML
-        answerButtons[0] = findViewById(R.id.button_answer_1);
-        answerButtons[1] = findViewById(R.id.button_answer_2);
-        answerButtons[2] = findViewById(R.id.button_answer_3);
-        answerButtons[3] = findViewById(R.id.button_answer_4);
+        // Setup answer buttons dynamically
+        setupAnswerButtons();
+        loadQuestion(currentQuestionIndex);
 
-        // --- Setup Colors ---
-        try {
-            colorBrown = ContextCompat.getColor(this, R.color.button_brown);
-            colorHighlight = ContextCompat.getColor(this, R.color.segment_highlight);
-            colorGray = ContextCompat.getColor(this, R.color.segment_gray);
-        } catch (Exception e) {
-            Toast.makeText(this, "Missing color resources, using defaults.", Toast.LENGTH_SHORT).show();
-        }
-
-        // --- Setup Questions ---
-        setupQuestionData();
-
-        // --- Setup Answer Buttons Click Listeners ---
-        for (int i = 0; i < answerButtons.length; i++) {
-            final int index = i;
-            answerButtons[i].setOnClickListener(v -> selectAnswer(index));
-        }
-
-        // --- Navigation Buttons ---
-        backButton.setOnClickListener(v -> navigate(-1));
+        // NEXT button
         nextButton.setOnClickListener(v -> navigate(1));
 
-        // Load first question
-        loadQuestion(currentQuestionIndex);
+        // BACK button
+        backButton.setOnClickListener(v -> {
+            if (currentQuestionIndex == 0) {
+                // Go back to dashboard
+                finish();
+            } else {
+                navigate(-1);
+            }
+        });
     }
 
     private void setupQuestionData() {
-        try {
-            questionList.add(new Question(getString(R.string.question_1)));
-            questionList.add(new Question(getString(R.string.question_2)));
-            questionList.add(new Question(getString(R.string.question_3)));
-            questionList.add(new Question(getString(R.string.question_4)));
-            questionList.add(new Question(getString(R.string.question_5)));
-            questionList.add(new Question(getString(R.string.question_6)));
-            questionList.add(new Question(getString(R.string.question_7)));
-            questionList.add(new Question(getString(R.string.question_8)));
-            questionList.add(new Question(getString(R.string.question_9)));
-        } catch (Exception e) {
-            questionList.add(new Question("1. Little interest or pleasure in doing things?"));
-            questionList.add(new Question("2. Feeling down, depressed, or hopeless?"));
-            questionList.add(new Question("3. Trouble falling or staying asleep, or sleeping too much?"));
-            questionList.add(new Question("4. Feeling tired or having little energy?"));
-            questionList.add(new Question("5. Poor appetite or overeating?"));
-            questionList.add(new Question("6. Feeling bad about yourself or that you are a failure?"));
-            questionList.add(new Question("7. Trouble concentrating on things?"));
-            questionList.add(new Question("8. Moving or speaking so slowly or being restless?"));
-            questionList.add(new Question("9. Thoughts that you would be better off dead, or of hurting yourself?"));
-        }
+        questionList.add(new Question("Little interest or pleasure in doing things?"));
+        questionList.add(new Question("Feeling down, depressed, or hopeless?"));
+        questionList.add(new Question("Trouble falling or staying asleep, or sleeping too much?"));
+        questionList.add(new Question("Feeling tired or having little energy?"));
+        questionList.add(new Question("Poor appetite or overeating?"));
+        questionList.add(new Question("Feeling bad about yourself, or that you are a failure?"));
+        questionList.add(new Question("Trouble concentrating on things?"));
+        questionList.add(new Question("Moving or speaking slowly or being restless?"));
+        questionList.add(new Question("Thoughts that you would be better off dead or of hurting yourself?"));
     }
 
     private void loadQuestion(int index) {
         if (index < 0 || index >= questionList.size()) return;
 
         Question currentQ = questionList.get(index);
-
-        // Update question text
         questionText.setText(currentQ.questionText);
-
-        // Update progress text
         progressText.setText((index + 1) + " of " + questionList.size());
+        setupProgressIndicator();
+        updateButtonSelection(currentQ.score);
+        updateNavigationButtons(index, currentQ.score);
+    }
 
-        // Update progress indicator segments
+    private void setupProgressIndicator() {
         for (int i = 0; i < segmentContainer.getChildCount(); i++) {
             View segment = segmentContainer.getChildAt(i);
             int tintColor = (i <= currentQuestionIndex) ? colorHighlight : colorGray;
@@ -137,12 +124,49 @@ public class assessment extends AppCompatActivity {
                 segment.getBackground().setColorFilter(new PorterDuffColorFilter(tintColor, PorterDuff.Mode.SRC_IN));
             }
         }
+    }
 
-        // Update answer buttons selection
-        updateButtonSelection(currentQ.score);
+    private void setupAnswerButtons() {
+        String[] answers;
+        try {
+            answers = getResources().getStringArray(R.array.answer_choices);
+        } catch (Exception e) {
+            answers = new String[]{"Not at all", "Several days", "More than half the days", "Nearly every day"};
+        }
 
-        // Update navigation buttons
-        updateNavigationButtons(index, currentQ.score);
+        buttonContainer.removeAllViews();
+
+        for (int i = 0; i < answers.length; i++) {
+            Button button = new Button(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            int margin = (int) (12 * getResources().getDisplayMetrics().density);
+            params.bottomMargin = margin;
+            button.setLayoutParams(params);
+
+            button.setText(answers[i]);
+            button.setTextColor(colorTextDefault);
+            button.setBackgroundColor(colorBrown);
+            button.setHeight((int) (60 * getResources().getDisplayMetrics().density));
+
+            answerButtons[i] = button;
+            final int index = i;
+            button.setOnClickListener(v -> selectAnswer(index));
+
+            buttonContainer.addView(button);
+        }
+    }
+
+    private void updateButtonSelection(int selectedScore) {
+        for (int i = 0; i < answerButtons.length; i++) {
+            Button button = answerButtons[i];
+            if (button != null) {
+                button.setBackgroundColor(i == selectedScore ? colorSelectedBrown : colorBrown);
+            }
+        }
+        questionText.setAlpha(selectedScore != -1 ? ENABLED_ALPHA : DISABLED_ALPHA + 0.2f);
     }
 
     private void selectAnswer(int index) {
@@ -151,62 +175,33 @@ public class assessment extends AppCompatActivity {
         updateNavigationButtons(currentQuestionIndex, index);
     }
 
-    private void updateButtonSelection(int selectedScore) {
-        for (int i = 0; i < answerButtons.length; i++) {
-            Button button = answerButtons[i];
-            if (i == selectedScore) {
-                button.setBackgroundColor(colorSelectedBrown);
-            } else {
-                button.setBackgroundColor(colorBrown);
-            }
-        }
-    }
-
     private void navigate(int direction) {
         int nextIndex = currentQuestionIndex + direction;
-
-        // --- BACK on first question goes to dashboard ---
-        if (direction == -1 && currentQuestionIndex == 0) {
-            finish(); // closes assessment and returns to PatientDashboard
-            return;
-        }
 
         if (nextIndex >= 0 && nextIndex < questionList.size()) {
             currentQuestionIndex = nextIndex;
             loadQuestion(currentQuestionIndex);
         } else if (nextIndex == questionList.size()) {
-            if (!allQuestionsAnswered()) {
-                int firstUnanswered = findFirstUnansweredQuestionIndex();
-                Toast.makeText(this,
-                        "Please answer Question " + (firstUnanswered + 1) + " before submitting.",
-                        Toast.LENGTH_LONG).show();
-                return;
-            }
+            // SUBMIT clicked
+            if (!allQuestionsAnswered()) return;
+
             int totalScore = calculateScore();
-            Toast.makeText(this, "Assessment Complete! Total score: " + totalScore, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(assessment.this, assessmentresult.class);
+            intent.putExtra("totalScore", totalScore);
+            startActivity(intent);
+            finish();
         }
     }
 
     private boolean allQuestionsAnswered() {
-        for (Question q : questionList) {
-            if (q.score == -1) return false;
-        }
+        for (Question q : questionList) if (q.score == -1) return false;
         return true;
     }
 
-    private int findFirstUnansweredQuestionIndex() {
-        for (int i = 0; i < questionList.size(); i++) {
-            if (questionList.get(i).score == -1) return i;
-        }
-        return -1;
-    }
-
     private int calculateScore() {
-        int total = 0;
-        for (Question q : questionList) {
-            if (q.score != -1) total += q.score;
-        }
-        return total;
+        int score = 0;
+        for (Question q : questionList) if (q.score != -1) score += q.score;
+        return score;
     }
 
     private void updateNavigationButtons(int index, int selectedScore) {
