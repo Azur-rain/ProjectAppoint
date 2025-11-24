@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("login_prefs", MODE_PRIVATE);
         boolean rememberMe = sharedPreferences.getBoolean("remember_me", false);
         cbRemember.setChecked(rememberMe);
+
         if (rememberMe) {
             editTextE.setText(sharedPreferences.getString("saved_email", ""));
             editTextPW.setText(sharedPreferences.getString("saved_password", ""));
@@ -45,11 +46,12 @@ public class LoginActivity extends AppCompatActivity {
 
         // ----------------- Login button -----------------
         buttonLogin.setOnClickListener(v -> {
+
             String email = Objects.requireNonNull(editTextE.getText()).toString().trim();
             String password = Objects.requireNonNull(editTextPW.getText()).toString().trim();
             boolean validateSuccess = true;
 
-            // ----------------- Validations -----------------
+            // ----------------- Empty Field Validations -----------------
             if (email.isEmpty()) {
                 TextStylingUtils.showAndFadeOut(tvErrorEmail, 4000);
                 validateSuccess = false;
@@ -62,12 +64,15 @@ public class LoginActivity extends AppCompatActivity {
                 editTextPW.requestFocus();
             }
 
-            // ----------------- Temporary login & Remember Me -----------------
+            // ----------------- Temporary Hardcoded Login -----------------
             if (validateSuccess) {
+
                 String TEMP_EMAIL = "test";
                 String TEMP_PASSWORD = "123";
 
                 if (email.equals(TEMP_EMAIL) && password.equals(TEMP_PASSWORD)) {
+
+                    // Remember Me Logic
                     if (cbRemember.isChecked()) {
                         sharedPreferences.edit()
                                 .putString("saved_email", email)
@@ -82,27 +87,36 @@ public class LoginActivity extends AppCompatActivity {
                                 .apply();
                     }
 
-
-                    // <--- Add this block to navigate to PatientDashboard --->
+                    // Navigate to Dashboard
                     Intent intent = new Intent(LoginActivity.this, PatientDashboard.class);
                     startActivity(intent);
                     finish();
 
                 } else {
-                    TextStylingUtils.showAndFadeOut(tvErrorEmail, 4000);
-                    TextStylingUtils.showAndFadeOut(tvErrorPassword, 4000);
+
+
+                    if (!email.equals(TEMP_EMAIL)) {
+                        TextStylingUtils.showAndFadeOut(tvErrorEmail, 4000);
+                        editTextE.requestFocus();
+                    }
+
+
+                    if (!password.equals(TEMP_PASSWORD)) {
+                        TextStylingUtils.showAndFadeOut(tvErrorPassword, 4000);
+                        editTextPW.requestFocus();
+                    }
                 }
             }
         });
 
         // ----------------- Forgot Password link -----------------
-        tvForgotPassword.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
-        });
+        tvForgotPassword.setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class))
+        );
 
         // ----------------- Register link -----------------
-        tvRegisterClickable.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-        });
+        tvRegisterClickable.setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
+        );
     }
 }
