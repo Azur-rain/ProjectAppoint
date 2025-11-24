@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".ForgotPasswordActivity"
-            android:exported="false" />  <!-- can be false unless you need it exported -->
+            android:exported="false" />
 
         <activity
             android:name=".RegisterActivity"
@@ -36,6 +36,12 @@
         <activity
             android:name=".AboutUsActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".assessment"
+            android:exported="false" />
+
+
 
     </application>
 

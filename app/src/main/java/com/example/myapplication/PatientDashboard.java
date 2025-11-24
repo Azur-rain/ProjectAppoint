@@ -41,7 +41,15 @@ public class PatientDashboard extends AppCompatActivity {
                 }
             });
         }
+        View btnAssessment = findViewById(R.id.btnDash);
+        if (btnAssessment != null) {
+            btnAssessment.setOnClickListener(v -> {
+                Intent intent = new Intent(PatientDashboard.this, assessment.class);
+                startActivity(intent);
+            });
+        }
     }
+
 
     // Handle image clicks (referenced in XML layout)
     public void onImageClick(View view) {
