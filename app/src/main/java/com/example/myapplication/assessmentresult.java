@@ -42,11 +42,15 @@ public class assessmentresult extends Activity {
 
     // Back to Home/Dashboard
     public void onHomeClicked(android.view.View view) {
-        finish(); // simply closes the result page and goes back to the previous activity
+        finish(); // closes the result page and goes back to the previous activity
     }
 
-    // Book Appointment button placeholder
+    // Book Appointment button
     public void onBookAppointmentClicked(android.view.View view) {
-        // TODO: Start appointment booking activity
+        Intent intent = new Intent(this, pt_Appoint_MainActivity.class);
+        // Clear the back stack so pressing back won't return to assessmentresult
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish(); // optional, closes the current activity
     }
 }

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -185,11 +186,19 @@ public class assessment extends AppCompatActivity {
             // SUBMIT clicked
             if (!allQuestionsAnswered()) return;
 
+            // --- Save that assessment is completed ---
+            SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("assessmentCompleted", true);
+            editor.apply();
+
             int totalScore = calculateScore();
+
+            // Go to results page
             Intent intent = new Intent(assessment.this, assessmentresult.class);
             intent.putExtra("totalScore", totalScore);
             startActivity(intent);
-            finish();
+            finish(); // Close assessment activity
         }
     }
 

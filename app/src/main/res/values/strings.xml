@@ -51,4 +51,10 @@
     <string name="table_data_diagnosis">Minimal Symptoms</string>
     <string name="subheading_cta">LET US LEND YOU A HAND</string>
     <string name="button_book_appointment">Book Appointment</string>
+
+
+
+    <string name="logo">GlimmerMind</string>
+    <string name="october_1">October 1</string>
+    <string name="_8_00_a_m">8:00 A.M.</string>
 </resources>

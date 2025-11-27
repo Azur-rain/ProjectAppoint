@@ -15,4 +15,20 @@
     <color name="background_primary">#FFF7D1</color> <!-- Light Yellow background -->
     <color name="card_background">#FFF3B9</color> <!-- Cream background for the card -->
 
+
+
+
+    <color name="blue">#0000FF</color>
+    <color name="brown_button">#68382E</color>
+    <color name="gray">#797272</color>
+    <color name="yellow">#FFF7D1</color>
+    <color name="green">#00FF0A</color>
+    <color name="orange">#FF9800</color>
+    <color name="red">#FF0000</color>
+    <color name="opacityBlue50">#0000FF</color>
+    <color name="softGreen">#75FF93</color>
+    <color name="grey">#797272</color>
+    <color name="opacityRed50">#FFB9BC</color>
+    <color name="opacityBlack">#FFFFFFFF</color>
+
 </resources>

@@ -45,6 +45,11 @@
             android:name=".assessmentresult"
             android:exported="false" />
 
+        <activity
+            android:name=".pt_Appoint_MainActivity"
+            android:exported="false" />
+
+
 
 
     </application>
