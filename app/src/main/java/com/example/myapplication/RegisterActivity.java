@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,110 +10,79 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
+
+import java.util.Calendar;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etFirstName, etLastName, etEmail;
-    private TextView tvfnError, tvlnError, tvemaError;
-    private AppCompatButton btnNext1, btnBack1;
+    private int currentStep = 1;
+    private static final int MAX_STEPS = 3;
 
-    private EditText etGender, etDob;
-    private TextView tvGenderError, tvDobError;
-    private AppCompatButton btnNext2, btnBack2;
+    private View layoutStep1, layoutStep2, layoutStep3;
 
-    private EditText etPassword, etConfirmPassword;
-    private TextView tvPasswordError, tvMin, tvMax, tvConfirmError;
-    private CheckBox cbAccept;
-    private AppCompatButton btnCreateAccount, btnBack3;
+    private AppCompatButton btnNext, btnBack;
+    private CheckBox checkBox;
 
-    private View layoutRegis1, layoutRegis2, layoutRegis3;
+    private AppCompatEditText etFirst, etLast, etEmail, etDateOfBirth, etPassword, etConPassword;
+    private Spinner spGender;
+    private TextView tvFirstError, tvLastError, tvEmailError, tvGenderError, tvDobError, tvPasswordError, tvConPasswordError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainregis);
+        setContentView(R.layout.activity_regis);
 
-        // Inflate all steps
-        layoutRegis1 = ((ViewStub) findViewById(R.id.stubregis1)).inflate();
-        layoutRegis2 = ((ViewStub) findViewById(R.id.stubregis2)).inflate();
-        layoutRegis2.setVisibility(View.GONE);
-        layoutRegis3 = ((ViewStub) findViewById(R.id.stubregis3)).inflate();
-        layoutRegis3.setVisibility(View.GONE);
+        btnNext = findViewById(R.id.button_next);
+        btnBack = findViewById(R.id.button_back);
 
-        // --- STEP 1 ---
-        etFirstName = layoutRegis1.findViewById(R.id.etfn);
-        etLastName = layoutRegis1.findViewById(R.id.etln);
-        etEmail = layoutRegis1.findViewById(R.id.etmail);
-        tvfnError = layoutRegis1.findViewById(R.id.tvfnError2);
-        tvlnError = layoutRegis1.findViewById(R.id.tvlnError22);
-        tvemaError = layoutRegis1.findViewById(R.id.tvemaError3);
-        btnNext1 = layoutRegis1.findViewById(R.id.btntonext);
-        btnBack1 = layoutRegis1.findViewById(R.id.btnLoginback);
+        layoutStep1 = findViewById(R.id.regis_step_1);
+        layoutStep2 = findViewById(R.id.regis_step_2);
+        layoutStep3 = findViewById(R.id.regis_step_3);
 
-        btnBack1.setOnClickListener(v -> finish());
+        // Step 1 fields
+        etFirst = layoutStep1.findViewById(R.id.et_firstName);
+        etLast = layoutStep1.findViewById(R.id.et_lastName);
+        etEmail = layoutStep1.findViewById(R.id.et_email);
+        tvFirstError = layoutStep1.findViewById(R.id.tv_firstName_Error);
+        tvLastError = layoutStep1.findViewById(R.id.tv_lastName_Error);
+        tvEmailError = layoutStep1.findViewById(R.id.tv_email_Error);
 
-        btnNext1.setOnClickListener(v -> {
-            boolean valid = true;
-            tvfnError.setVisibility(TextUtils.isEmpty(etFirstName.getText()) ? View.VISIBLE : View.INVISIBLE);
-            tvlnError.setVisibility(TextUtils.isEmpty(etLastName.getText()) ? View.VISIBLE : View.INVISIBLE);
-            tvemaError.setVisibility(TextUtils.isEmpty(etEmail.getText()) ? View.VISIBLE : View.INVISIBLE);
+        // Step 2 fields
+        spGender = layoutStep2.findViewById(R.id.et_gender);
+        etDateOfBirth = layoutStep2.findViewById(R.id.et_date_of_birth);
+        tvGenderError = layoutStep2.findViewById(R.id.tv_gender_Error);
+        tvDobError = layoutStep2.findViewById(R.id.tv_date_of_birth_Error);
 
-            if (tvfnError.getVisibility() == View.INVISIBLE &&
-                    tvlnError.getVisibility() == View.INVISIBLE &&
-                    tvemaError.getVisibility() == View.INVISIBLE) {
-                showStep2();
-            }
-        });
+        // Step 3 fields
+        etPassword = layoutStep3.findViewById(R.id.et_password);
+        etConPassword = layoutStep3.findViewById(R.id.et_con_password);
+        tvPasswordError = layoutStep3.findViewById(R.id.tv_password_Error);
+        tvConPasswordError = layoutStep3.findViewById(R.id.tv_con_password_Error);
+        checkBox = layoutStep3.findViewById(R.id.checkBox);
 
-        // --- STEP 2 ---
-        etGender = layoutRegis2.findViewById(R.id.etgen);
-        etDob = layoutRegis2.findViewById(R.id.etdob);
-        tvGenderError = layoutRegis2.findViewById(R.id.tvgenError33);
-        tvDobError = layoutRegis2.findViewById(R.id.tvlnError4);
-        btnNext2 = layoutRegis2.findViewById(R.id.btntonext1);
-        btnBack2 = layoutRegis2.findViewById(R.id.btnback1);
+        // Terms & Privacy
+        TextView tvTerms = layoutStep3.findViewById(R.id.tv1);
+        TextView tvPrivacy = layoutStep3.findViewById(R.id.tv3);
+        tvTerms.setOnClickListener(v -> showDialog(R.layout.termdialog, R.id.btnClose));
+        tvPrivacy.setOnClickListener(v -> showDialog(R.layout.policydialog, R.id.btnClosetwo));
 
-        btnBack2.setOnClickListener(v -> {
-            layoutRegis2.setVisibility(View.GONE);
-            layoutRegis1.setVisibility(View.VISIBLE);
-        });
-
-        btnNext2.setOnClickListener(v -> {
-            boolean valid = true;
-            tvGenderError.setVisibility(TextUtils.isEmpty(etGender.getText()) ? View.VISIBLE : View.INVISIBLE);
-            tvDobError.setVisibility(TextUtils.isEmpty(etDob.getText()) ? View.VISIBLE : View.INVISIBLE);
-
-            if (tvGenderError.getVisibility() == View.INVISIBLE && tvDobError.getVisibility() == View.INVISIBLE) {
-                showStep3();
-            }
-        });
-
-        // --- STEP 3 ---
-        etPassword = layoutRegis3.findViewById(R.id.etpas);
-        etConfirmPassword = layoutRegis3.findViewById(R.id.etconpa);
-        tvPasswordError = layoutRegis3.findViewById(R.id.tvgenError444);
-        tvMin = layoutRegis3.findViewById(R.id.tvmin);
-        tvMax = layoutRegis3.findViewById(R.id.tvmax);
-        tvConfirmError = layoutRegis3.findViewById(R.id.tvlnError51);
-        cbAccept = layoutRegis3.findViewById(R.id.cbAccept);
-        btnCreateAccount = layoutRegis3.findViewById(R.id.btnmakeacc);
-        btnBack3 = layoutRegis3.findViewById(R.id.btnback2);
-
-        btnCreateAccount.setEnabled(false); // Disabled by default
-
-        cbAccept.setOnCheckedChangeListener((buttonView, isChecked) -> btnCreateAccount.setEnabled(isChecked));
-
+        // Password strength check
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String password = s.toString();
@@ -124,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (password.length() < 10) {
                     tvPasswordError.setText("*Password is weak");
                     tvPasswordError.setTextColor(Color.RED);
-                } else if (password.length() <= 12) {
+                } else if (password.length() <= 13) {
                     tvPasswordError.setText("*Password is medium");
                     tvPasswordError.setTextColor(Color.parseColor("#00FF0A"));
                 } else {
@@ -133,72 +101,228 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 tvPasswordError.setVisibility(View.VISIBLE);
             }
+
             @Override
             public void afterTextChanged(Editable s) { }
         });
 
-        btnCreateAccount.setOnClickListener(v -> {
-            boolean valid = true;
-            String password = etPassword.getText().toString();
-            String confirm = etConfirmPassword.getText().toString();
+        // Checkbox enables Create Account button
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (currentStep == 3) {
+                btnNext.setEnabled(isChecked);
+            }
+        });
 
-            tvPasswordError.setVisibility(View.VISIBLE);
-            tvConfirmError.setVisibility(View.INVISIBLE);
+        // Setup Gender Spinner with styled hint and dropdown
+        setupGenderSpinner();
 
-            if (TextUtils.isEmpty(password)) {
-                tvPasswordError.setText("*Password is required");
-                tvPasswordError.setTextColor(Color.RED);
-                valid = false;
-            } else if (password.length() < 10) {
-                tvPasswordError.setText("*Password is weak");
-                tvPasswordError.setTextColor(Color.RED);
-                valid = false;
+        // Date picker for DOB
+        etDateOfBirth.setOnClickListener(v -> showDatePicker());
+
+        btnNext.setOnClickListener(v -> {
+            handleNext(true);
+            updateButtonState();
+        });
+
+        btnBack.setOnClickListener(v -> {
+            handleNext(false);
+            updateButtonState();
+        });
+
+        showCurrentStep();
+        updateButtonText();
+        updateButtonState();
+    }
+
+    private void setupGenderSpinner() {
+        String[] genders = {"Gender", "Male", "Female"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genders) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0; // Disable hint
             }
 
-            if (TextUtils.isEmpty(confirm)) {
-                tvConfirmError.setText("*Please confirm your password");
-                tvConfirmError.setVisibility(View.VISIBLE);
-                valid = false;
-            } else if (!password.equals(confirm)) {
-                if (password.length() >= 10) {
-                    tvConfirmError.setText("*Password do not match");
-                    tvConfirmError.setVisibility(View.VISIBLE);
-                    valid = false;
-                }
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                tv.setTextSize(12);
+                tv.setTextColor(position == 0 ? Color.GRAY : Color.BLACK); // hint gray, selection black
+                return tv;
             }
 
-            if (!cbAccept.isChecked()) valid = false;
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                tv.setTextSize(12);
+                tv.setTextColor(Color.BLACK); // dropdown items black
+                tv.setBackgroundColor(Color.WHITE); // dropdown background white
+                return tv;
+            }
+        };
 
-            if (valid && password.length() >= 10 && password.equals(confirm)) {
-                layoutRegis3.setVisibility(View.GONE);
-                // Redirect back to LoginActivity
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spGender.setAdapter(adapter);
+        spGender.setSelection(0); // show hint by default
+    }
+
+    private void showDatePicker() {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    String dob = String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear);
+                    etDateOfBirth.setText(dob);
+                }, year, month, day);
+        datePickerDialog.show();
+    }
+
+    private void handleNext(boolean isNext) {
+        if (isNext) {
+            boolean valid = false;
+
+            switch (currentStep) {
+                case 1:
+                    valid = validateStep1();
+                    break;
+                case 2:
+                    valid = validateStep2();
+                    break;
+                case 3:
+                    valid = validateStep3();
+                    if (valid) {
+                        startActivity(new Intent(this, LoginActivity.class));
+                        finish();
+                        return;
+                    }
+                    break;
+            }
+
+            if (!valid) return;
+            if (currentStep < MAX_STEPS) currentStep++;
+        } else {
+            if (currentStep > 1) currentStep--;
+            else {
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
+                return;
             }
-        });
+        }
 
-        btnBack3.setOnClickListener(v -> {
-            layoutRegis3.setVisibility(View.GONE);
-            layoutRegis2.setVisibility(View.VISIBLE);
-        });
-
-        // Terms & Privacy dialogs remain the same
-        TextView tvTerms = layoutRegis3.findViewById(R.id.tv1);
-        TextView tvPrivacy = layoutRegis3.findViewById(R.id.tv3);
-
-        tvTerms.setOnClickListener(v -> showDialog(R.layout.termdialog, R.id.btnClose));
-        tvPrivacy.setOnClickListener(v -> showDialog(R.layout.policydialog, R.id.btnClosetwo));
+        showCurrentStep();
+        updateButtonText();
     }
 
-    private void showStep2() {
-        layoutRegis1.setVisibility(View.GONE);
-        layoutRegis2.setVisibility(View.VISIBLE);
+    private boolean validateStep1() {
+        boolean valid = true;
+
+        if (TextUtils.isEmpty(etFirst.getText())) {
+            tvFirstError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else tvFirstError.setVisibility(View.INVISIBLE);
+
+        if (TextUtils.isEmpty(etLast.getText())) {
+            tvLastError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else tvLastError.setVisibility(View.INVISIBLE);
+
+        String email = Objects.requireNonNull(etEmail.getText()).toString().trim();
+        if (email.isEmpty()) {
+            tvEmailError.setText("*Email is missing");
+            tvEmailError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            tvEmailError.setText("*Invalid email format");
+            tvEmailError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else tvEmailError.setVisibility(View.INVISIBLE);
+
+        return valid;
     }
 
-    private void showStep3() {
-        layoutRegis2.setVisibility(View.GONE);
-        layoutRegis3.setVisibility(View.VISIBLE);
+    private boolean validateStep2() {
+        boolean valid = true;
+
+        if (spGender.getSelectedItemPosition() == 0) {
+            tvGenderError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else tvGenderError.setVisibility(View.INVISIBLE);
+
+        if (TextUtils.isEmpty(etDateOfBirth.getText())) {
+            tvDobError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else tvDobError.setVisibility(View.INVISIBLE);
+
+        return valid;
+    }
+
+    private boolean validateStep3() {
+        boolean valid = true;
+
+        String password = Objects.requireNonNull(etPassword.getText()).toString().trim();
+        String confirm = Objects.requireNonNull(etConPassword.getText()).toString().trim();
+
+        // Password validation
+        if (TextUtils.isEmpty(password) || password.length() < 10) {
+            tvPasswordError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else {
+            tvPasswordError.setVisibility(View.INVISIBLE);
+        }
+
+        // Confirm password validation
+        if (TextUtils.isEmpty(confirm)) {
+            tvConPasswordError.setText("*Please confirm your password");
+            tvConPasswordError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else if (!password.equals(confirm)) {
+            if (password.length() >= 10) {
+                tvConPasswordError.setText("*Password do not match");
+                tvConPasswordError.setVisibility(View.VISIBLE);
+                valid = false;
+            }
+        } else {
+            tvConPasswordError.setVisibility(View.INVISIBLE);
+        }
+
+        // Checkbox must be checked
+        if (!checkBox.isChecked()) valid = false;
+
+        return valid;
+    }
+
+    private void showCurrentStep() {
+        layoutStep1.setVisibility(View.GONE);
+        layoutStep2.setVisibility(View.GONE);
+        layoutStep3.setVisibility(View.GONE);
+
+        switch (currentStep) {
+            case 1: layoutStep1.setVisibility(View.VISIBLE); break;
+            case 2: layoutStep2.setVisibility(View.VISIBLE); break;
+            case 3: layoutStep3.setVisibility(View.VISIBLE); break;
+        }
+    }
+
+    private void updateButtonText() {
+        if (currentStep == 3) btnNext.setText("Create Account");
+        else btnNext.setText("NEXT");
+
+        if (currentStep == 1) btnBack.setText("BACK TO LOGIN");
+        else btnBack.setText("BACK");
+    }
+
+    private void updateButtonState() {
+        if (currentStep == 3) {
+            btnNext.setEnabled(checkBox.isChecked());
+        } else {
+            btnNext.setEnabled(true);
+        }
+        btnNext.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.button_enabled_state));
     }
 
     private void showDialog(int layoutResId, int btnCloseId) {
