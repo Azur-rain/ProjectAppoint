@@ -74,7 +74,7 @@ public class assessmentjava extends AppCompatActivity {
 
 
         // Using R.layout.activity_main to resolve the 'Cannot resolve symbol' error
-        setContentView(R.layout.availtimeslot);
+        setContentView(R.layout.assessment);
 
 
         // Initialize Colors (with try-catch for robustness)

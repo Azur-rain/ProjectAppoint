@@ -144,7 +144,6 @@
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_progress_segments"
@@ -238,51 +237,65 @@
 
     <!-- 8. Primary Button Labeled "NEXT" (CRITICAL ID) -->
 
-    <Button
-        android:id="@+id/button_back"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/button_brown"
-        android:contentDescription="Go back to the previous question"
-        android:enabled="false"
-        app:icon="@drawable/ic_arrow_back"
-        app:iconTint="@color/segment_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_next"
-        style="@style/PoppinsTextAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/button_brown"
-        android:textColor="@color/text_tertiary"
-        android:textSize="16sp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:text="@string/button_next"
+        android:layout_marginBottom="16dp"
+        android:gravity="bottom"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:enabled="false"
-        android:alpha="0.5"
-        tools:text="NEXT" />
+        app:layout_constraintHorizontal_bias="0.0"
 
-    <!-- 6. Segmented Progress Text "1 of 9" (CRITICAL ID) - Constrained between buttons and centered vertically. -->
-    <TextView
-        android:id="@+id/text_progress"
-        style="@style/PoppinsTextAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text_primary"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_next"
-        app:layout_constraintTop_toTopOf="@+id/button_next"
-        app:layout_constraintEnd_toStartOf="@+id/button_next"
-        app:layout_constraintStart_toEndOf="@+id/button_back"
-        tools:text="1 of 9" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Horizontal row for the 2 buttons -->
+        <LinearLayout
+            android:layout_width="376dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:fitsSystemWindows="true"
+            android:gravity="start"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/button_brown"
+                android:contentDescription="Go back to the previous question"
+                android:enabled="false"
+                app:icon="@drawable/ic_arrow_back"
+                app:iconTint="@color/segment_gray" />
+
+            <TextView
+                android:id="@+id/text_progress"
+                style="@style/PoppinsTextAppearance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                tools:text="1 of 9" />
+
+            <Button
+                android:id="@+id/button_next"
+                style="@style/PoppinsTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:backgroundTint="@color/button_brown"
+                android:enabled="false"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/button_next"
+                android:textColor="@color/text_tertiary"
+                android:textSize="16sp"
+                tools:text="NEXT" />
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
