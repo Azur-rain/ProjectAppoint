@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF7D1"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="303dp"
+        android:layout_height="248dp"
+        android:layout_marginTop="64dp"
+        android:adjustViewBounds="true"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/__10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/form_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView3">
+
+        <include
+            android:id="@+id/regis_step_1"
+            layout="@layout/regis_fields_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/regis_step_2"
+            layout="@layout/regis_fields_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/regis_step_3"
+            layout="@layout/regis_fields_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:id="@+id/button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fitsSystemWindows="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_back"
+                android:layout_width="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:layout_height="37dp"
+                android:background="@drawable/buttonradius"
+                android:backgroundTint="#68382E"
+                android:fontFamily="@font/popbold"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_margin="16dp"
+                android:text="BACK TO LOGIN"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_next"
+                android:layout_width="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:layout_height="35dp"
+                android:layout_margin="16dp"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/buttonradius"
+                android:backgroundTint="#68382E"
+                android:fontFamily="@font/popbold"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="NEXT"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
