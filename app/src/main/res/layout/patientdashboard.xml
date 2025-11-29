@@ -187,7 +187,6 @@
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:layout_marginBottom="5dp"
-                android:onClick="onImageClick"
                 android:src="@drawable/appoint"
                 app:tint="#68382E" />
 
@@ -195,8 +194,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/popreg"
-                android:text="Book an appointment calender"
+                android:text="Book an appointment"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="12sp" />

@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Basic Colors -->
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Assessment Specific Colors -->
+    <color name="segment_highlight">#FFF9D006</color> <!-- Bright Yellow for active segments -->
+    <color name="segment_gray">#FFCCCCCC</color> <!-- Light Gray for inactive segments -->
+    <color name="error_red">#FFFF0000</color> <!-- Red for instruction text -->
+    <color name="text_primary">#FF000000</color> <!-- Black for main text -->
+    <color name="text_tertiary">#FFFFFFFF</color> <!-- White for buttons -->
+    <color name="button_brown">#FF68382E</color> <!-- Brown for buttons -->
+    <color name="background_primary">#FFF7D1</color> <!-- Light Yellow background -->
+    <color name="card_background">#FFF3B9</color> <!-- Cream background for the card -->
 
 
 
-        <color name="colorAccent">#FF4081</color> <!-- or any color you want -->
 
-
-
+    <color name="blue">#0000FF</color>
+    <color name="brown_button">#68382E</color>
+    <color name="gray">#797272</color>
+    <color name="yellow">#FFF7D1</color>
+    <color name="green">#00FF0A</color>
+    <color name="orange">#FF9800</color>
+    <color name="red">#FF0000</color>
+    <color name="opacityBlue50">#0000FF</color>
+    <color name="softGreen">#75FF93</color>
+    <color name="grey">#797272</color>
+    <color name="opacityRed50">#FFB9BC</color>
+    <color name="opacityBlack">#FFFFFFFF</color>
 
 </resources>
