@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_regis_step_3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -139,15 +140,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/popreg"
-            android:text="*Password does not match"
+            android:text=""
             android:textColor="#FF0000"
             android:textSize="12sp"
             android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="37dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -156,16 +156,21 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/cb_consent"
+                    android:id="@+id/checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:button="@drawable/checkbox_selector"
+                    android:buttonTint="@null"
+                    app:buttonTint="@null"
+                    android:paddingStart="10dp"
+                    />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:gravity="left">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -209,18 +214,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_consent_Error"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:fontFamily="@font/popreg"
-                android:text="*Password does not match"
-                android:textColor="#FF0000"
-                android:textSize="12sp"
-                android:visibility="invisible" />
-
         </LinearLayout>
     </LinearLayout>
 
