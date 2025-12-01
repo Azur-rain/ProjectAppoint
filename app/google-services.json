@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "574374953303",
+    "firebase_url": "https://id-projectappoint-default-rtdb.firebaseio.com",
+    "project_id": "id-projectappoint",
+    "storage_bucket": "id-projectappoint.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574374953303:android:ea4ec075247162a8bbfe12",
+        "android_client_info": {
+          "package_name": "com.example.projectappoint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574374953303-jsvvqgrk17nbpmnrk17s7lg65i45v1db.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcsD2kAngtPJ2CDebvOgYjMPPNnRX4bEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574374953303-jsvvqgrk17nbpmnrk17s7lg65i45v1db.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574374953303:android:ff9ddfcd0e63caa7bbfe12",
+        "android_client_info": {
+          "package_name": "com.example.projectmain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574374953303-jsvvqgrk17nbpmnrk17s7lg65i45v1db.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcsD2kAngtPJ2CDebvOgYjMPPNnRX4bEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574374953303-jsvvqgrk17nbpmnrk17s7lg65i45v1db.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

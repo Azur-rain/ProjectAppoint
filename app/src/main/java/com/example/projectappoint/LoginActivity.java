@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.projectappoint;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,17 +15,21 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private FirebaseService firestoreRepo;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        firestoreRepo = FirebaseService.getInstance();
+
         // ----------------- Views -----------------
-        AppCompatEditText editTextE = findViewById(R.id.eTEmail);
-        AppCompatEditText editTextPW = findViewById(R.id.etPassword);
-        TextView tvErrorEmail = findViewById(R.id.tvEmailError);
-        TextView tvErrorPassword = findViewById(R.id.tvPasswordError);
-        AppCompatButton buttonLogin = findViewById(R.id.btnLogin);
+        AppCompatEditText editTextE = findViewById(R.id.et_email);
+        AppCompatEditText editTextPW = findViewById(R.id.et_password);
+        TextView tvErrorEmail = findViewById(R.id.tv_email_Error);
+        TextView tvErrorPassword = findViewById(R.id.tv_password_Error);
+        AppCompatButton buttonLogin = findViewById(R.id.btn_login);
         TextView tvForgotPassword = findViewById(R.id.tvForgotPasswordClickable);
         TextView tvRegisterClickable = findViewById(R.id.tvRegisterClickable);
         CheckBox cbRemember = findViewById(R.id.cbRemember);
@@ -49,29 +53,23 @@ public class LoginActivity extends AppCompatActivity {
 
             String email = Objects.requireNonNull(editTextE.getText()).toString().trim();
             String password = Objects.requireNonNull(editTextPW.getText()).toString().trim();
-            boolean validateSuccess = true;
 
             // ----------------- Empty Field Validations -----------------
             if (email.isEmpty()) {
                 TextStylingUtils.showAndFadeOut(tvErrorEmail, 4000);
-                validateSuccess = false;
                 editTextE.requestFocus();
+                return;
             }
 
             if (password.isEmpty()) {
                 TextStylingUtils.showAndFadeOut(tvErrorPassword, 4000);
-                validateSuccess = false;
                 editTextPW.requestFocus();
+                return;
             }
 
-            // ----------------- Temporary Hardcoded Login -----------------
-            if (validateSuccess) {
-
-                String TEMP_EMAIL = "test";
-                String TEMP_PASSWORD = "123";
-
-                if (email.equals(TEMP_EMAIL) && password.equals(TEMP_PASSWORD)) {
-
+            firestoreRepo.loginUser(email, password, new FirebaseService.LoginCallback() {
+                @Override
+                public void onSuccess() {
                     // Remember Me Logic
                     if (cbRemember.isChecked()) {
                         sharedPreferences.edit()
@@ -91,22 +89,21 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, PatientDashboard.class);
                     startActivity(intent);
                     finish();
+                }
 
-                } else {
-
-
-                    if (!email.equals(TEMP_EMAIL)) {
+                @Override
+                public void onFailure(Exception e) {
+                    if (e.getMessage().equals("User not found")) {
+                        tvErrorEmail.setText("*Email not registered.");
                         TextStylingUtils.showAndFadeOut(tvErrorEmail, 4000);
                         editTextE.requestFocus();
-                    }
-
-
-                    if (!password.equals(TEMP_PASSWORD)) {
+                    } else if (e.getMessage().equals("Invalid password")) {
+                        tvErrorPassword.setText("*Incorrect password.");
                         TextStylingUtils.showAndFadeOut(tvErrorPassword, 4000);
                         editTextPW.requestFocus();
                     }
                 }
-            }
+            });
         });
 
         // ----------------- Forgot Password link -----------------

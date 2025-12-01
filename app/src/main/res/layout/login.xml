@@ -31,7 +31,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
@@ -39,13 +39,13 @@
 
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/eTEmail"
+            android:id="@+id/et_email"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="1dp"
-            android:background="@drawable/background_login"
+            android:background="@drawable/background_textfield"
             android:fontFamily="@font/popreg"
             android:hint="Email"
             android:inputType="textEmailAddress"
@@ -53,34 +53,33 @@
             android:paddingEnd="18dp"
             android:singleLine="true"
             android:textColor="#000000"
-            android:textSize="12sp"
-            tools:ignore="MissingConstraints" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvEmailError"
+                android:id="@+id/tv_email_Error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
+                android:animateLayoutChanges="false"
                 android:fontFamily="@font/popreg"
                 android:text="*Email missing or Invalid email"
                 android:textColor="#FF0000"
-                android:animateLayoutChanges="false"
                 android:textSize="12sp"
                 android:visibility="invisible" />
         </LinearLayout>
 
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/etPassword"
+            android:id="@+id/et_password"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/background_login"
+            android:background="@drawable/background_textfield"
             android:ems="10"
             android:fontFamily="@font/popreg"
             android:hint="Password"
@@ -96,18 +95,31 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvPasswordError"
+                android:id="@+id/tv_password_Error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:animateLayoutChanges="false"
                 android:fontFamily="@font/popreg"
                 android:text="*Password missing or Invalid password"
                 android:textColor="#FF0000"
-                android:animateLayoutChanges="false"
                 android:textSize="12sp"
                 android:visibility="invisible" />
         </LinearLayout>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp">
 
         <View
             android:id="@+id/view"
@@ -138,10 +150,10 @@
                     android:layout_height="wrap_content"
                     android:button="@drawable/checkbox_selector"
                     android:buttonTint="@null"
-                    app:buttonTint="@null"
-                    android:paddingStart="10dp"
                     android:minWidth="0dp"
-                    android:minHeight="0dp"/>
+                    android:minHeight="0dp"
+                    android:paddingStart="10dp"
+                    app:buttonTint="@null" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -168,21 +180,8 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp">
-
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnLogin"
+            android:id="@+id/btn_login"
             android:layout_width="227dp"
             android:layout_height="48dp"
             android:layout_marginBottom="9dp"

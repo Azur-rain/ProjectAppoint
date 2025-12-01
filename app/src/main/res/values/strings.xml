@@ -57,4 +57,13 @@
     <string name="logo">GlimmerMind</string>
     <string name="october_1">October 1</string>
     <string name="_8_00_a_m">8:00 A.M.</string>
+
+
+    <string-array name="gender_options">
+        <item>Select Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
 </resources>
